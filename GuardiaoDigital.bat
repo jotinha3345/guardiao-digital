@@ -52,6 +52,8 @@ if errorlevel 1 (
   echo.
   echo Nao foi possivel conectar ao PostgreSQL.
   echo Confira backend\.env e se o banco guardiao_digital existe.
+  echo.
+  echo Dica: execute ConfigurarBanco.bat para informar usuario e senha corretos.
   pause
   exit /b 1
 )

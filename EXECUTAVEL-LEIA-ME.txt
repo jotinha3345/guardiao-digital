@@ -9,6 +9,11 @@ Como usar:
 3. Confira os dados de conexao em backend\.env.
 4. Dê duplo clique em GuardiaoDigital.bat.
 
+Se aparecer erro P1000 de autenticacao do PostgreSQL:
+1. Execute ConfigurarBanco.bat.
+2. Informe usuario, senha e porta do seu PostgreSQL.
+3. Depois abra GuardiaoDigital.exe novamente.
+
 O sistema abrira em:
 http://localhost:3333
 
