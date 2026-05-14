@@ -14,6 +14,12 @@ Se aparecer erro P1000 de autenticacao do PostgreSQL:
 2. Informe usuario, senha e porta do seu PostgreSQL.
 3. Depois abra GuardiaoDigital.exe novamente.
 
+Se voce esqueceu a senha do PostgreSQL:
+1. Clique com o botao direito em ResetarSenhaPostgres.bat.
+2. Escolha "Executar como administrador".
+3. A nova senha sera definida como guardiao123.
+4. Depois abra GuardiaoDigital.exe novamente.
+
 O sistema abrira em:
 http://localhost:3333
 
