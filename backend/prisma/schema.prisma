@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DenunciaStatus {
+  pendente
+  aprovado
+  rejeitado
+}
+
+model User {
+  id        String      @id @default(uuid())
+  nome      String
+  email     String      @unique
+  senha     String
+  cidade    String
+  telefone  String?
+  createdAt DateTime    @default(now()) @map("created_at")
+  denuncias Denuncia[]
+  resultados QuizResultado[]
+
+  @@map("users")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String   @unique
+  senha     String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("admins")
+}
+
+model Denuncia {
+  id             String          @id @default(uuid())
+  tipoGolpe      String          @map("tipo_golpe")
+  descricao      String
+  numeroSuspeito String?         @map("numero_suspeito")
+  linkSuspeito   String?         @map("link_suspeito")
+  nomeSuspeito   String?         @map("nome_suspeito")
+  imagem         String?
+  cidade         String
+  usuarioId      String          @map("usuario_id")
+  status         DenunciaStatus  @default(pendente)
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  usuario        User            @relation(fields: [usuarioId], references: [id])
+
+  @@index([status])
+  @@index([tipoGolpe])
+  @@index([cidade])
+  @@map("denuncias")
+}
+
+model MaterialEducativo {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  titulo    String
+  resumo    String
+  conteudo  String
+  categoria String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("materiais_educativos")
+}
+
+model QuizPergunta {
+  id             String   @id @default(uuid())
+  pergunta       String
+  respostaCorreta String  @map("resposta_correta")
+  explicacao     String
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("quiz_perguntas")
+}
+
+model QuizResultado {
+  id        String   @id @default(uuid())
+  usuarioId String?  @map("usuario_id")
+  pontuacao Int
+  nivel     String
+  createdAt DateTime @default(now()) @map("created_at")
+  usuario   User?    @relation(fields: [usuarioId], references: [id])
+
+  @@map("quiz_resultados")
+}
